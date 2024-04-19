@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableView = ({ users, setUsers }) => {
+const TableView = ({ records, users, setUsers, handleDelete }) => {
   return (
     <form>
       <table className="table">
@@ -15,7 +15,7 @@ const TableView = ({ users, setUsers }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, i) => (
+          {records.map((user, i) => (
             <tr key={i}>
               <td>{user.id}</td>
               <td>{user.name}</td>
