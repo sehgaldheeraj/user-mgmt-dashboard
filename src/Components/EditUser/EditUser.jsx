@@ -1,6 +1,7 @@
 import React from "react";
+
 /**
- * Renders a table row with input fields to edit the name, email, and Designation of a user.
+ * Renders a table row with input fields to edit the first name, last name, email, and Designation of a user.
  *
  * @param {Object} props - The properties object.
  * @param {Object} props.user - The user object to be edited.
@@ -10,18 +11,37 @@ import React from "react";
  */
 const EditUser = ({ user, users, setUsers }) => {
   /**
-   * Updates the name of a user in the users array and updates the state with the new data.
+   * Updates the first name of a user in the users array and updates the state with the new data.
    *
-   * @param {Event} event - The event object containing the new name value.
+   * @param {Event} event - The event object containing the new first name value.
    * @return {void} This function does not return anything.
    */
-  function handleName(event) {
-    const newName = event.target.value;
+  function handleFirstName(event) {
+    const newFirstName = event.target.value;
     const updatedData = users.map((e) =>
-      e.id === user.id ? { ...e, name: newName } : e
+      e.id === user.id
+        ? { ...e, name: `${newFirstName} ${user.name.split(" ")[1]}` }
+        : e
     );
     setUsers(updatedData);
   }
+
+  /**
+   * Updates the last name of a user in the users array and updates the state with the new data.
+   *
+   * @param {Event} event - The event object containing the new last name value.
+   * @return {void} This function does not return anything.
+   */
+  function handleLastName(event) {
+    const newLastName = event.target.value;
+    const updatedData = users.map((e) =>
+      e.id === user.id
+        ? { ...e, name: `${user.name.split(" ")[0]} ${newLastName}` }
+        : e
+    );
+    setUsers(updatedData);
+  }
+
   /**
    * A function to handle the email input change event.
    *
@@ -35,27 +55,42 @@ const EditUser = ({ user, users, setUsers }) => {
     );
     setUsers(updatedData);
   }
+
+  /**
+   * A function to handle the designation input change event.
+   *
+   * @param {Event} event - The event object triggered by the designation input change.
+   * @return {void} This function does not return anything.
+   */
   function handleDesignation(event) {
     const newDesignation = event.target.value;
-    console.log(newDesignation);
     const updatedData = users.map((e) =>
       e.id === user.id
         ? { ...e, company: { ...e.company, bs: newDesignation } }
         : e
     );
     setUsers(updatedData);
-    console.log(user.company.bs);
   }
+
   return (
     <tr>
       <td></td>
       <td>
         <input
           type="text"
-          value={user.name}
-          onChange={handleName}
-          name="name"
-          placeholder="Enter Name"
+          value={user.name.split(" ")[0]} // First Name
+          onChange={handleFirstName}
+          name="firstName"
+          placeholder="Enter First Name"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          value={user.name.split(" ")[1]} // Last Name
+          onChange={handleLastName}
+          name="lastName"
+          placeholder="Enter Last Name"
         />
       </td>
       <td>

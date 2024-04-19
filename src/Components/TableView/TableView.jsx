@@ -13,6 +13,7 @@ import "./tableView.css";
  */
 const TableView = ({ records, users, setUsers, handleDelete }) => {
   const [editState, setEditState] = useState(-1);
+
   /**
    * Sets the edit state to the provided ID.
    *
@@ -22,6 +23,7 @@ const TableView = ({ records, users, setUsers, handleDelete }) => {
   const handleEdit = (id) => {
     setEditState(id);
   };
+
   /**
    * Handles the update of user data based on form input.
    *
@@ -31,12 +33,13 @@ const TableView = ({ records, users, setUsers, handleDelete }) => {
   async function handleUpdate(event) {
     event.preventDefault();
 
-    // Extract form data
-    const name = event.target.elements.name.value;
-    const email = event.target.elements.email.value;
-    const designation = event.target.elements.designation.value;
-
     try {
+      // Extract form data
+      const firstName = event.target.elements.firstName.value;
+      const lastName = event.target.elements.lastName.value;
+      const email = event.target.elements.email.value;
+      const designation = event.target.elements.designation.value;
+
       // Fetch the current user data from the API
       const response = await fetch(`${API_URL}/${editState}`);
       if (!response.ok) {
@@ -45,8 +48,18 @@ const TableView = ({ records, users, setUsers, handleDelete }) => {
       const userData = await response.json();
 
       // Updated the user data with edited values
-      const updatedUserData = { ...userData, name, email, designation };
-
+      const updatedUserData = {
+        ...userData,
+        name: `${firstName} ${lastName}`,
+        email,
+        company: { ...userData.company, bs: designation },
+      };
+      // Updated local state with the edited data
+      const updatedUsers = users.map((user) =>
+        user.id === editState ? updatedUserData : user
+      );
+      setUsers(updatedUsers);
+      setEditState(-1);
       // Sent PUT request to update user data
       const updateResponse = await fetch(`${API_URL}/${editState}`, {
         method: "PUT",
@@ -61,11 +74,11 @@ const TableView = ({ records, users, setUsers, handleDelete }) => {
       }
 
       // Updated local state with the edited data
-      const updatedUsers = users.map((user) =>
-        user.id === editState ? updatedUserData : user
-      );
-      setUsers(updatedUsers);
-      setEditState(-1);
+      // const updatedUsers = users.map((user) =>
+      //   user.id === editState ? updatedUserData : user
+      // );
+      // setUsers(updatedUsers);
+      // setEditState(-1);
       console.log("User data updated successfully");
     } catch (error) {
       console.error("Error updating user data:", error.message);
@@ -78,7 +91,8 @@ const TableView = ({ records, users, setUsers, handleDelete }) => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Email</th>
             <th>Department</th>
             <th>Edit/Delete</th>
@@ -91,7 +105,8 @@ const TableView = ({ records, users, setUsers, handleDelete }) => {
             ) : (
               <tr key={i}>
                 <td>{user.id}</td>
-                <td>{user.name}</td>
+                <td>{user.name.split(" ")[0]}</td>
+                <td>{user.name.split(" ")[1]}</td>
                 <td>{user.email}</td>
                 <td>
                   {user.company.bs

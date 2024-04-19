@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TableView from "../TableView/TableView";
 import Pagination from "../Pagination/Pagination";
 import AddUser from "../AddUser/AddUser";
-
 export const API_URL = "https://jsonplaceholder.typicode.com/users";
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
@@ -44,7 +43,6 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     const updatedUsers = users.filter((user) => user.id !== id);
     setUsers(updatedUsers);
-
     try {
       const response = await fetch(API_URL, {
         method: "DELETE",
@@ -80,7 +78,11 @@ const Dashboard = () => {
         setCurrentPage={setCurrentPage}
       />
       {addUserFlag ? (
-        <AddUser users={users} setUsers={setUsers} />
+        <AddUser
+          users={users}
+          setUsers={setUsers}
+          setAddUserFlag={setAddUserFlag}
+        />
       ) : (
         <button
           style={{
