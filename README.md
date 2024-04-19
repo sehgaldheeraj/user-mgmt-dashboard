@@ -39,32 +39,12 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## `challenges`
+Structuring the components and managing their interactions posed a challenge, especially when implementing features like modals for adding users. It required careful planning to ensure a clean and maintainable component hierarchy.
+Integrating with the RESTful API for user data management required handling asynchronous operations and error handling effectively. Inability of jsonPlaceholder providing PUT, DELETE and POST methods made the development difficult because it was nearly impossible to edit data for the users we add on our own, maintaining the users data on local was the only option.
+Designing a user-friendly interface and ensuring responsiveness across different screen sizes presented challenges in terms of CSS styling and achieving consistency in design and layout required iterative adjustments.
+Managing state effectively within the application, especially when dealing with forms and any dialogs, required careful consideration of state management techniques such as React hooks and still was a part that left me wondering how to go about it.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## `scope of improvement`
+Replacing jsonHolder with the fully functional backend is one of the major scopes that can make this application an absolute goliath and provide ease in terms of rendering correct data and flashing error and success toasters that will only increase the ease of user.
+In terms of functionality, the site works just fine, only the part of UI that needs a massive upgrade was something that could've been achieved with more time in hand.
